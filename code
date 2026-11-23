@@ -1,0 +1,2141 @@
+# This Python 3 environment comes with many helpful analytics libraries installed
+# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python
+# For example, here's several helpful packages to load
+
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+
+# Input data files are available in the read-only "../input/" directory
+# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
+
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+
+# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using "Save & Run All" 
+# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session
+/kaggle/input/data262/gandata/photos/m2-021-01.jpg
+/kaggle/input/data262/gandata/photos/m1-040-01.jpg
+/kaggle/input/data262/gandata/photos/f1-004-01.jpg
+/kaggle/input/data262/gandata/photos/f2-016-01.jpg
+/kaggle/input/data262/gandata/photos/f2-017-01.jpg
+/kaggle/input/data262/gandata/photos/m2-036-01.jpg
+/kaggle/input/data262/gandata/photos/m1-041-01.jpg
+/kaggle/input/data262/gandata/photos/m2-018-01.jpg
+/kaggle/input/data262/gandata/photos/m-055-01.jpg
+/kaggle/input/data262/gandata/photos/m-056-01.jpg
+/kaggle/input/data262/gandata/photos/f1-008-01.jpg
+/kaggle/input/data262/gandata/photos/m-026-01.jpg
+/kaggle/input/data262/gandata/photos/m1-004-01.jpg
+/kaggle/input/data262/gandata/photos/m-025-01.jpg
+/kaggle/input/data262/gandata/photos/m-034-01.jpg
+/kaggle/input/data262/gandata/photos/f2-026-01.jpg
+/kaggle/input/data262/gandata/photos/m-044-01.jpg
+/kaggle/input/data262/gandata/photos/m-024-01.jpg
+/kaggle/input/data262/gandata/photos/f-007-01.jpg
+/kaggle/input/data262/gandata/photos/f1-002-01.jpg
+/kaggle/input/data262/gandata/photos/m2-029-01.jpg
+/kaggle/input/data262/gandata/photos/m-031-01.jpg
+/kaggle/input/data262/gandata/photos/m-028-01.jpg
+/kaggle/input/data262/gandata/photos/f2-013-01.jpg
+/kaggle/input/data262/gandata/photos/f2-015-01.jpg
+/kaggle/input/data262/gandata/photos/m-076-01.jpg
+/kaggle/input/data262/gandata/photos/m-013-01.jpg
+/kaggle/input/data262/gandata/photos/m-036-01.jpg
+/kaggle/input/data262/gandata/photos/m2-035-01.jpg
+/kaggle/input/data262/gandata/photos/m1-029-01.jpg
+/kaggle/input/data262/gandata/photos/f1-011-01.jpg
+/kaggle/input/data262/gandata/photos/m1-018-01.jpg
+/kaggle/input/data262/gandata/photos/f-038-01.jpg
+/kaggle/input/data262/gandata/photos/f1-003-01.jpg
+/kaggle/input/data262/gandata/photos/m-033-01.jpg
+/kaggle/input/data262/gandata/photos/m-070-01.jpg
+/kaggle/input/data262/gandata/photos/m-014-01.jpg
+/kaggle/input/data262/gandata/photos/m1-028-01.jpg
+/kaggle/input/data262/gandata/photos/f2-005-01.jpg
+/kaggle/input/data262/gandata/photos/m2-016-01.jpg
+/kaggle/input/data262/gandata/photos/f1-013-01.jpg
+/kaggle/input/data262/gandata/photos/m-048-01.jpg
+/kaggle/input/data262/gandata/photos/f2-033-01.jpg
+/kaggle/input/data262/gandata/photos/m-066-01.jpg
+/kaggle/input/data262/gandata/photos/m1-005-01.jpg
+/kaggle/input/data262/gandata/photos/m1-038-01.jpg
+/kaggle/input/data262/gandata/photos/f-036-01.jpg
+/kaggle/input/data262/gandata/photos/m2-002-01.jpg
+/kaggle/input/data262/gandata/photos/f2-042-01.jpg
+/kaggle/input/data262/gandata/photos/m1-024-01.jpg
+/kaggle/input/data262/gandata/photos/f-025-01.jpg
+/kaggle/input/data262/gandata/photos/f2-014-01.jpg
+/kaggle/input/data262/gandata/photos/m-073-01.jpg
+/kaggle/input/data262/gandata/photos/m1-039-01.jpg
+/kaggle/input/data262/gandata/photos/m2-009-01.jpg
+/kaggle/input/data262/gandata/photos/m1-003-01.jpg
+/kaggle/input/data262/gandata/photos/f-028-01.jpg
+/kaggle/input/data262/gandata/photos/f2-002-01.jpg
+/kaggle/input/data262/gandata/photos/f2-031-01.jpg
+/kaggle/input/data262/gandata/photos/m-094-01.jpg
+/kaggle/input/data262/gandata/photos/m2-017-01.jpg
+/kaggle/input/data262/gandata/photos/m-041-01.jpg
+/kaggle/input/data262/gandata/photos/f2-024-01.jpg
+/kaggle/input/data262/gandata/photos/m-057-01.jpg
+/kaggle/input/data262/gandata/photos/f-043-01.jpg
+/kaggle/input/data262/gandata/photos/f-032-01.jpg
+/kaggle/input/data262/gandata/photos/m2-019-01.jpg
+/kaggle/input/data262/gandata/photos/m-045-01.jpg
+/kaggle/input/data262/gandata/photos/m-012-01.jpg
+/kaggle/input/data262/gandata/photos/m2-014-01.jpg
+/kaggle/input/data262/gandata/photos/f-005-01.jpg
+/kaggle/input/data262/gandata/photos/f-035-01.jpg
+/kaggle/input/data262/gandata/photos/m1-014-01.jpg
+/kaggle/input/data262/gandata/photos/m-062-01.jpg
+/kaggle/input/data262/gandata/photos/m1-030-01.jpg
+/kaggle/input/data262/gandata/photos/m2-038-01.jpg
+/kaggle/input/data262/gandata/photos/m-085-01.jpg
+/kaggle/input/data262/gandata/photos/m2-012-01.jpg
+/kaggle/input/data262/gandata/photos/m-052-01.jpg
+/kaggle/input/data262/gandata/photos/m2-037-01.jpg
+/kaggle/input/data262/gandata/photos/m-030-01.jpg
+/kaggle/input/data262/gandata/photos/f-031-01.jpg
+/kaggle/input/data262/gandata/photos/m-079-01.jpg
+/kaggle/input/data262/gandata/photos/m1-021-01.jpg
+/kaggle/input/data262/gandata/photos/m1-011-01.jpg
+/kaggle/input/data262/gandata/photos/f-029-01.jpg
+/kaggle/input/data262/gandata/photos/f-034-01.jpg
+/kaggle/input/data262/gandata/photos/f-006-01.jpg
+/kaggle/input/data262/gandata/photos/m-063-01.jpg
+/kaggle/input/data262/gandata/photos/m-046-01.jpg
+/kaggle/input/data262/gandata/photos/m1-037-01.jpg
+/kaggle/input/data262/gandata/photos/m-029-01.jpg
+/kaggle/input/data262/gandata/photos/f1-006-01.jpg
+/kaggle/input/data262/gandata/photos/m-042-01.jpg
+/kaggle/input/data262/gandata/photos/f2-034-01.jpg
+/kaggle/input/data262/gandata/photos/m-071-01.jpg
+/kaggle/input/data262/gandata/photos/m-097-01.jpg
+/kaggle/input/data262/gandata/photos/f2-029-01.jpg
+/kaggle/input/data262/gandata/photos/f1-014-01.jpg
+/kaggle/input/data262/gandata/photos/f-018-01.jpg
+/kaggle/input/data262/gandata/photos/m-060-01.jpg
+/kaggle/input/data262/gandata/photos/f2-020-01.jpg
+/kaggle/input/data262/gandata/photos/m-027-01.jpg
+/kaggle/input/data262/gandata/photos/m-047-01.jpg
+/kaggle/input/data262/gandata/photos/m-023-01.jpg
+/kaggle/input/data262/gandata/photos/f1-007-01.jpg
+/kaggle/input/data262/gandata/photos/m1-009-01.jpg
+/kaggle/input/data262/gandata/photos/m1-020-01.jpg
+/kaggle/input/data262/gandata/photos/f2-028-01.jpg
+/kaggle/input/data262/gandata/photos/m2-005-01.jpg
+/kaggle/input/data262/gandata/photos/m2-025-01.jpg
+/kaggle/input/data262/gandata/photos/m2-028-01.jpg
+/kaggle/input/data262/gandata/photos/m-098-01.jpg
+/kaggle/input/data262/gandata/photos/m1-032-01.jpg
+/kaggle/input/data262/gandata/photos/m1-002-01.jpg
+/kaggle/input/data262/gandata/photos/m1-036-01.jpg
+/kaggle/input/data262/gandata/photos/f2-025-01.jpg
+/kaggle/input/data262/gandata/photos/m1-017-01.jpg
+/kaggle/input/data262/gandata/photos/f2-003-01.jpg
+/kaggle/input/data262/gandata/photos/f2-037-01.jpg
+/kaggle/input/data262/gandata/photos/f-026-01.jpg
+/kaggle/input/data262/gandata/photos/m2-024-01.jpg
+/kaggle/input/data262/gandata/photos/m-088-01.jpg
+/kaggle/input/data262/gandata/photos/m-096-01.jpg
+/kaggle/input/data262/gandata/photos/f-042-01.jpg
+/kaggle/input/data262/gandata/photos/m-089-01.jpg
+/kaggle/input/data262/gandata/photos/f-020-01.jpg
+/kaggle/input/data262/gandata/photos/f2-007-01.jpg
+/kaggle/input/data262/gandata/photos/f-040-01.jpg
+/kaggle/input/data262/gandata/photos/m2-033-01.jpg
+/kaggle/input/data262/gandata/photos/m2-022-01.jpg
+/kaggle/input/data262/gandata/photos/m-019-01.jpg
+/kaggle/input/data262/gandata/photos/m-100-01.jpg
+/kaggle/input/data262/gandata/photos/m2-001-01.jpg
+/kaggle/input/data262/gandata/photos/f-041-01.jpg
+/kaggle/input/data262/gandata/photos/m2-006-01.jpg
+/kaggle/input/data262/gandata/photos/m2-011-01.jpg
+/kaggle/input/data262/gandata/photos/f-037-01.jpg
+/kaggle/input/data262/gandata/photos/m-050-01.jpg
+/kaggle/input/data262/gandata/photos/m1-016-01.jpg
+/kaggle/input/data262/gandata/photos/m1-001-01.jpg
+/kaggle/input/data262/gandata/photos/f-011-01.jpg
+/kaggle/input/data262/gandata/photos/m-018-01.jpg
+/kaggle/input/data262/gandata/photos/f-010-01.jpg
+/kaggle/input/data262/gandata/photos/m-078-01.jpg
+/kaggle/input/data262/gandata/photos/f2-021-01.jpg
+/kaggle/input/data262/gandata/photos/m-021-01.jpg
+/kaggle/input/data262/gandata/photos/f-016-01.jpg
+/kaggle/input/data262/gandata/photos/f1-009-01.jpg
+/kaggle/input/data262/gandata/photos/m-068-01.jpg
+/kaggle/input/data262/gandata/photos/m2-020-01.jpg
+/kaggle/input/data262/gandata/photos/m-081-01.jpg
+/kaggle/input/data262/gandata/photos/m2-023-01.jpg
+/kaggle/input/data262/gandata/photos/f1-015-01.jpg
+/kaggle/input/data262/gandata/photos/m-087-01.jpg
+/kaggle/input/data262/gandata/photos/m-093-01.jpg
+/kaggle/input/data262/gandata/photos/m-095-01.jpg
+/kaggle/input/data262/gandata/photos/m-064-01.jpg
+/kaggle/input/data262/gandata/photos/f2-001-01.jpg
+/kaggle/input/data262/gandata/photos/m2-008-01.jpg
+/kaggle/input/data262/gandata/photos/m1-013-01.jpg
+/kaggle/input/data262/gandata/photos/m1-007-01.jpg
+/kaggle/input/data262/gandata/photos/f2-012-01.jpg
+/kaggle/input/data262/gandata/photos/m-016-01.jpg
+/kaggle/input/data262/gandata/photos/f2-011-01.jpg
+/kaggle/input/data262/gandata/photos/m-039-01.jpg
+/kaggle/input/data262/gandata/photos/m1-022-01.jpg
+/kaggle/input/data262/gandata/photos/m2-015-01.jpg
+/kaggle/input/data262/gandata/photos/m-017-01.jpg
+/kaggle/input/data262/gandata/photos/m-035-01.jpg
+/kaggle/input/data262/gandata/photos/m-040-01.jpg
+/kaggle/input/data262/gandata/photos/m-099-01.jpg
+/kaggle/input/data262/gandata/photos/f2-039-01.jpg
+/kaggle/input/data262/gandata/photos/m-011-01.jpg
+/kaggle/input/data262/gandata/photos/f2-036-01.jpg
+/kaggle/input/data262/gandata/photos/f-012-01.jpg
+/kaggle/input/data262/gandata/photos/m-086-01.jpg
+/kaggle/input/data262/gandata/photos/m-092-01.jpg
+/kaggle/input/data262/gandata/photos/m1-006-01.jpg
+/kaggle/input/data262/gandata/photos/m-038-01.jpg
+/kaggle/input/data262/gandata/photos/f-021-01.jpg
+/kaggle/input/data262/gandata/photos/m2-039-01.jpg
+/kaggle/input/data262/gandata/photos/m-051-01.jpg
+/kaggle/input/data262/gandata/photos/m1-034-01.jpg
+/kaggle/input/data262/gandata/photos/f2-018-01.jpg
+/kaggle/input/data262/gandata/photos/f2-009-01.jpg
+/kaggle/input/data262/gandata/photos/m-061-01.jpg
+/kaggle/input/data262/gandata/photos/m-065-01.jpg
+/kaggle/input/data262/gandata/photos/m1-008-01.jpg
+/kaggle/input/data262/gandata/photos/m-032-01.jpg
+/kaggle/input/data262/gandata/photos/m-075-01.jpg
+/kaggle/input/data262/gandata/photos/f2-008-01.jpg
+/kaggle/input/data262/gandata/photos/m1-033-01.jpg
+/kaggle/input/data262/gandata/photos/f2-035-01.jpg
+/kaggle/input/data262/gandata/photos/m2-013-01.jpg
+/kaggle/input/data262/gandata/photos/f-008-01.jpg
+/kaggle/input/data262/gandata/photos/m-082-01.jpg
+/kaggle/input/data262/gandata/photos/m-058-01.jpg
+/kaggle/input/data262/gandata/photos/f2-006-01.jpg
+/kaggle/input/data262/gandata/photos/f-013-01.jpg
+/kaggle/input/data262/gandata/photos/f2-038-01.jpg
+/kaggle/input/data262/gandata/photos/f2-032-01.jpg
+/kaggle/input/data262/gandata/photos/f-027-01.jpg
+/kaggle/input/data262/gandata/photos/m2-004-01.jpg
+/kaggle/input/data262/gandata/photos/m2-003-01.jpg
+/kaggle/input/data262/gandata/photos/f1-010-01.jpg
+/kaggle/input/data262/gandata/photos/m2-027-01.jpg
+/kaggle/input/data262/gandata/photos/m-054-01.jpg
+/kaggle/input/data262/gandata/photos/m1-027-01.jpg
+/kaggle/input/data262/gandata/photos/m-080-01.jpg
+/kaggle/input/data262/gandata/photos/m-077-01.jpg
+/kaggle/input/data262/gandata/photos/m1-010-01.jpg
+/kaggle/input/data262/gandata/photos/m1-015-01.jpg
+/kaggle/input/data262/gandata/photos/m-053-01.jpg
+/kaggle/input/data262/gandata/photos/m1-026-01.jpg
+/kaggle/input/data262/gandata/photos/m2-026-01.jpg
+/kaggle/input/data262/gandata/photos/m-015-01.jpg
+/kaggle/input/data262/gandata/photos/f-019-01.jpg
+/kaggle/input/data262/gandata/photos/m-074-01.jpg
+/kaggle/input/data262/gandata/photos/f-017-01.jpg
+/kaggle/input/data262/gandata/photos/m1-025-01.jpg
+/kaggle/input/data262/gandata/photos/m-069-01.jpg
+/kaggle/input/data262/gandata/photos/m-084-01.jpg
+/kaggle/input/data262/gandata/photos/m-037-01.jpg
+/kaggle/input/data262/gandata/photos/m-043-01.jpg
+/kaggle/input/data262/gandata/photos/m1-031-01.jpg
+/kaggle/input/data262/gandata/photos/m1-012-01.jpg
+/kaggle/input/data262/gandata/photos/f-030-01.jpg
+/kaggle/input/data262/gandata/photos/f-039-01.jpg
+/kaggle/input/data262/gandata/photos/m1-035-01.jpg
+/kaggle/input/data262/gandata/photos/m2-010-01.jpg
+/kaggle/input/data262/gandata/photos/f-009-01.jpg
+/kaggle/input/data262/gandata/photos/m-083-01.jpg
+/kaggle/input/data262/gandata/photos/m2-030-01.jpg
+/kaggle/input/data262/gandata/photos/m2-032-01.jpg
+/kaggle/input/data262/gandata/photos/f2-027-01.jpg
+/kaggle/input/data262/gandata/photos/m1-023-01.jpg
+/kaggle/input/data262/gandata/photos/m-022-01.jpg
+/kaggle/input/data262/gandata/photos/f2-019-01.jpg
+/kaggle/input/data262/gandata/photos/f2-023-01.jpg
+/kaggle/input/data262/gandata/photos/f-015-01.jpg
+/kaggle/input/data262/gandata/photos/f1-012-01.jpg
+/kaggle/input/data262/gandata/photos/f2-022-01.jpg
+/kaggle/input/data262/gandata/photos/m-049-01.jpg
+/kaggle/input/data262/gandata/photos/f-014-01.jpg
+/kaggle/input/data262/gandata/photos/m-009-01.jpg
+/kaggle/input/data262/gandata/photos/m-067-01.jpg
+/kaggle/input/data262/gandata/photos/m-090-01.jpg
+/kaggle/input/data262/gandata/photos/f-024-01.jpg
+/kaggle/input/data262/gandata/photos/m-059-01.jpg
+/kaggle/input/data262/gandata/photos/m-072-01.jpg
+/kaggle/input/data262/gandata/photos/f2-041-01.jpg
+/kaggle/input/data262/gandata/photos/f-022-01.jpg
+/kaggle/input/data262/gandata/photos/f1-001-01.jpg
+/kaggle/input/data262/gandata/photos/f1-005-01.jpg
+/kaggle/input/data262/gandata/photos/f2-030-01.jpg
+/kaggle/input/data262/gandata/photos/m1-019-01.jpg
+/kaggle/input/data262/gandata/photos/m-008-01.jpg
+/kaggle/input/data262/gandata/photos/f2-010-01.jpg
+/kaggle/input/data262/gandata/photos/f-023-01.jpg
+/kaggle/input/data262/gandata/photos/m-010-01.jpg
+/kaggle/input/data262/gandata/photos/m-101-01.jpg
+/kaggle/input/data262/gandata/photos/f-033-01.jpg
+/kaggle/input/data262/gandata/photos/f2-004-01.jpg
+/kaggle/input/data262/gandata/photos/m-091-01.jpg
+/kaggle/input/data262/gandata/photos/m2-007-01.jpg
+/kaggle/input/data262/gandata/sketches/f-024-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-016-01.jpg
+/kaggle/input/data262/gandata/sketches/f2-017-01.jpg
+/kaggle/input/data262/gandata/sketches/m-019-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-056-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-036-01.jpg
+/kaggle/input/data262/gandata/sketches/f1-014-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-018-01.jpg
+/kaggle/input/data262/gandata/sketches/f-007-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-019-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f1-002-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-005-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-026-01.jpg
+/kaggle/input/data262/gandata/sketches/m-008-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-029-01.jpg
+/kaggle/input/data262/gandata/sketches/m-090-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f1-001-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-013-01.jpg
+/kaggle/input/data262/gandata/sketches/f2-015-01.jpg
+/kaggle/input/data262/gandata/sketches/m-088-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-035-01.jpg
+/kaggle/input/data262/gandata/sketches/m1-020-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-003-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-099-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-012-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-040-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-068-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-060-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-005-01.jpg
+/kaggle/input/data262/gandata/sketches/m-025-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-041-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-033-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-002-01.jpg
+/kaggle/input/data262/gandata/sketches/f2-042-01.jpg
+/kaggle/input/data262/gandata/sketches/f2-014-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-009-01.jpg
+/kaggle/input/data262/gandata/sketches/m-057-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-002-01.jpg
+/kaggle/input/data262/gandata/sketches/f2-031-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-017-01.jpg
+/kaggle/input/data262/gandata/sketches/m-021-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-029-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-021-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-024-01.jpg
+/kaggle/input/data262/gandata/sketches/m-087-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-010-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-066-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-086-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-019-01.jpg
+/kaggle/input/data262/gandata/sketches/m-089-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-014-01.jpg
+/kaggle/input/data262/gandata/sketches/m-049-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-097-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-041-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-027-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-029-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-095-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-051-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-032-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-038-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-038-01.jpg
+/kaggle/input/data262/gandata/sketches/f-029-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-018-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-012-01.jpg
+/kaggle/input/data262/gandata/sketches/f-005-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-037-01.jpg
+/kaggle/input/data262/gandata/sketches/f-025-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-053-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-018-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-018-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-035-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-006-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-085-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-030-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-020-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-043-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-033-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-024-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-014-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-101-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-034-01.jpg
+/kaggle/input/data262/gandata/sketches/f2-029-01.jpg
+/kaggle/input/data262/gandata/sketches/f-036-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-042-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-011-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-040-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-032-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-082-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-020-01.jpg
+/kaggle/input/data262/gandata/sketches/f1-004-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f1-012-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-010-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-070-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-010-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-045-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-093-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-033-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-043-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-026-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-013-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-081-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-028-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-005-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-025-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-028-01.jpg
+/kaggle/input/data262/gandata/sketches/m-041-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f1-013-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-062-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-016-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-025-01.jpg
+/kaggle/input/data262/gandata/sketches/m-094-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-003-01.jpg
+/kaggle/input/data262/gandata/sketches/m-024-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-037-01.jpg
+/kaggle/input/data262/gandata/sketches/m-048-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f1-015-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-039-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-024-01.jpg
+/kaggle/input/data262/gandata/sketches/f-013-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-033-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-007-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-033-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-022-01.jpg
+/kaggle/input/data262/gandata/sketches/m1-008-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-001-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-006-01.jpg
+/kaggle/input/data262/gandata/sketches/m-075-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-011-01.jpg
+/kaggle/input/data262/gandata/sketches/m-055-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-044-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-032-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-017-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-016-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-069-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-039-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-021-01.jpg
+/kaggle/input/data262/gandata/sketches/f1-006-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-006-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-031-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-050-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-038-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-091-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-020-01.jpg
+/kaggle/input/data262/gandata/sketches/f1-010-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-046-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-023-01.jpg
+/kaggle/input/data262/gandata/sketches/f1-005-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-037-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-023-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-001-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-008-01.jpg
+/kaggle/input/data262/gandata/sketches/m-098-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-072-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-012-01.jpg
+/kaggle/input/data262/gandata/sketches/f-011-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-026-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-026-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-011-01.jpg
+/kaggle/input/data262/gandata/sketches/m1-023-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-014-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-015-01.jpg
+/kaggle/input/data262/gandata/sketches/f-040-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-039-01.jpg
+/kaggle/input/data262/gandata/sketches/m1-012-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-034-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-016-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-061-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-036-01.jpg
+/kaggle/input/data262/gandata/sketches/m-084-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-037-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-034-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-034-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-009-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-096-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-039-01.jpg
+/kaggle/input/data262/gandata/sketches/m1-031-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-018-01.jpg
+/kaggle/input/data262/gandata/sketches/f1-009-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-019-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-073-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-009-01.jpg
+/kaggle/input/data262/gandata/sketches/f1-008-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-012-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-035-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-017-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-035-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-008-01.jpg
+/kaggle/input/data262/gandata/sketches/m-036-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-083-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-009-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-035-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-013-01.jpg
+/kaggle/input/data262/gandata/sketches/m-077-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-080-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-006-01.jpg
+/kaggle/input/data262/gandata/sketches/f2-038-01.jpg
+/kaggle/input/data262/gandata/sketches/m-015-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-032-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-004-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-003-01.jpg
+/kaggle/input/data262/gandata/sketches/m1-022-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-027-01.jpg
+/kaggle/input/data262/gandata/sketches/m-028-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-078-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-011-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-004-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-038-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-076-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-028-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-022-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-030-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-026-01.jpg
+/kaggle/input/data262/gandata/sketches/m1-014-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-027-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-025-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-059-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-054-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f1-003-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-015-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f1-011-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-067-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-092-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-071-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-065-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-028-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-039-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-013-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-010-01.jpg
+/kaggle/input/data262/gandata/sketches/m1-015-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-063-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m2-030-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-032-01.jpg
+/kaggle/input/data262/gandata/sketches/f2-027-01.jpg
+/kaggle/input/data262/gandata/sketches/f1-007-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-058-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-007-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-019-01.jpg
+/kaggle/input/data262/gandata/sketches/m-009-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-023-01.jpg
+/kaggle/input/data262/gandata/sketches/m-064-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-022-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-022-01.jpg
+/kaggle/input/data262/gandata/sketches/m-042-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-031-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-037-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-027-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-030-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-047-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-002-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-041-01.jpg
+/kaggle/input/data262/gandata/sketches/f-008-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-074-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-030-01.jpg
+/kaggle/input/data262/gandata/sketches/m-100-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-010-01.jpg
+/kaggle/input/data262/gandata/sketches/f-021-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-001-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m1-036-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-079-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/m-017-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f-023-01-sz1.jpg
+/kaggle/input/data262/gandata/sketches/f2-004-01.jpg
+/kaggle/input/data262/gandata/sketches/m2-007-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-021-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-040-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-004-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-016-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-017-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-041-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-018-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-055-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-056-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-008-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-026-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-004-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-025-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-034-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-044-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-024-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-007-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-002-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-031-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-028-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-013-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-015-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-076-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-013-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-036-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-029-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-011-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-018-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-038-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-003-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-033-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-070-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-014-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-028-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-005-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-016-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-013-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-048-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-066-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-005-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-038-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-036-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-002-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-024-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-025-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-014-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-073-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-039-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-009-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-003-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-028-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-002-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-094-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-017-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-041-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-057-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-043-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-032-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-019-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-045-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-012-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-014-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-005-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-035-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-014-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-062-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-030-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-085-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-012-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-052-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-030-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-031-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-079-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-021-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-011-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-029-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-034-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-006-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-063-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-046-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-037-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-029-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-006-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-042-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-071-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-097-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-014-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-018-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-060-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-020-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-027-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-047-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-023-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-007-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-009-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-020-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-005-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-098-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-032-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-002-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-036-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-017-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-003-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-026-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-088-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-096-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-042-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-089-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-020-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-007-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-040-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-022-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-019-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-100-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-001-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-041-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-006-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-011-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-037-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-050-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-016-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-001-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-011-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-018-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-010-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-078-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-021-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-021-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-016-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-009-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-068-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-020-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-081-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-015-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-087-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-093-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-095-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-064-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-001-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-008-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-013-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-007-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-012-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-016-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-011-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-039-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-022-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-015-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-017-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-035-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-040-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-099-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-011-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-012-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-086-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-092-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-006-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-038-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-021-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-051-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-034-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-018-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-0010-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-009-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-061-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-065-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-008-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-032-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-075-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-008-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-033-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-013-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-008-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-082-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-058-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-006-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-013-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-027-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-004-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-003-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-010-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-054-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-027-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-080-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-077-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-010-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-015-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-053-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-026-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-015-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-019-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-074-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-017-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-025-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-069-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-084-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-037-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-043-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-031-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-012-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-030-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-039-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-035-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-010-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-009-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-083-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-023-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-022-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-019-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-015-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-012-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-049-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-014-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-009-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-067-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-090-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-024-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-059-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-072-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-022-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-001-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f1-005-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m1-019-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-008-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-023-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-010-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-101-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f-033-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/f2-004-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m-091-01.jpg
+/kaggle/input/gan-dataset/gandata/photos/m2-007-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-024-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-016-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-017-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-019-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-056-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-014-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-018-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-007-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-019-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-002-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-005-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-008-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-090-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-001-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-013-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-015-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-088-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-020-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-003-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-099-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-012-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-040-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-068-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-060-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-005-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-025-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-041-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-002-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-014-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-009-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-057-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-002-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-017-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-021-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-029-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-021-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-087-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-010-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-066-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-086-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-019-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-089-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-014-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-049-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-097-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-041-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-027-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-029-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-095-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-051-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-032-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-038-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-029-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-018-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-012-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-005-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-025-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-053-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-018-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-018-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-035-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-006-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-085-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-030-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-020-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-043-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-033-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-024-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-014-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-101-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-036-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-042-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-011-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-040-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-032-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-082-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-020-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-004-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-012-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-010-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-070-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-010-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-045-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-093-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-033-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-043-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-026-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-013-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-081-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-005-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-041-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-013-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-062-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-016-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-094-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-003-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-024-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-048-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-015-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-039-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-013-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-033-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-007-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-022-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-008-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-001-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-006-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-075-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-011-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-055-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-044-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-032-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-017-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-016-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-069-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-039-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-021-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-006-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-006-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-031-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-050-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-038-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-091-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-020-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-010-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-046-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-005-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-037-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-023-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-001-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-008-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-098-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-072-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-012-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-011-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-026-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-026-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-011-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-023-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-014-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-015-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-040-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-012-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-034-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-016-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-061-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-084-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-037-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-034-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-034-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-009-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-096-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-031-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-018-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-009-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-019-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-073-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-009-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-008-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-012-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-035-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-017-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-035-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-008-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-036-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-083-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-009-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-013-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-077-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-080-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-006-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-015-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-004-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-003-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-022-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-028-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-078-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-011-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-004-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-038-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-076-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-028-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-022-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-030-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-014-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-027-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-025-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-059-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-054-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-003-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-015-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-011-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-067-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-092-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-071-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-065-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-028-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-039-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-013-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-010-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-015-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-063-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f1-007-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-058-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-007-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-019-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-009-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-064-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-022-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-042-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-031-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-037-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-027-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-030-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-047-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-002-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-008-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-074-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-100-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-010-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-021-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-001-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m1-036-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-079-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m-017-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f-023-01-sz1.jpg
+/kaggle/input/gan-dataset/gandata/sketches/f2-004-01.jpg
+/kaggle/input/gan-dataset/gandata/sketches/m2-007-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-040-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-004-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-041-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-055-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-056-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-008-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-026-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-004-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-025-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-034-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-044-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-024-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-007-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-002-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-031-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-028-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-076-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-013-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-036-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-029-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-011-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-018-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-038-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-003-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-033-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-070-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-014-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-028-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-013-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-048-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-066-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-005-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-038-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-036-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-024-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-025-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-073-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-039-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-003-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-028-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-094-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-041-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-057-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-043-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-032-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-045-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-012-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-005-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-035-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-014-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-062-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-030-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-085-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-052-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-030-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-031-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-079-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-021-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-011-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-029-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-034-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-006-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-063-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-046-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-037-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-029-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-006-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-042-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-071-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-097-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-014-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-018-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-060-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-027-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-047-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-023-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-007-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-009-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-020-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-098-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-032-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-002-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-036-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-017-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-026-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-088-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-096-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-042-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-089-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-020-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-040-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-019-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-100-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-041-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-037-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-050-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-016-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-001-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-011-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-018-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-010-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-078-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-021-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-016-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-009-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-068-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-081-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-015-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-087-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-093-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-095-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-064-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-013-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-007-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-016-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-039-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-022-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-017-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-035-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-040-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-099-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-011-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-012-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-086-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-092-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-006-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-038-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-021-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-051-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-034-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-061-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-065-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-008-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-032-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-075-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-033-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-008-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-082-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-058-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-013-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-027-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-010-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-054-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-027-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-080-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-077-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-010-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-015-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-053-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-026-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-015-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-019-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-074-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-017-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-025-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-069-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-084-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-037-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-043-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-031-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-012-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-030-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-039-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-035-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-009-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-083-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-023-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-022-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-015-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-012-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-049-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-014-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-009-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-067-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-090-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-024-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-059-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-072-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-022-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-001-01.jpg
+/kaggle/input/ymdata/data_set/photos/f1-005-01.jpg
+/kaggle/input/ymdata/data_set/photos/m1-019-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-008-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-023-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-010-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-101-01.jpg
+/kaggle/input/ymdata/data_set/photos/f-033-01.jpg
+/kaggle/input/ymdata/data_set/photos/m-091-01.jpg
+/kaggle/input/ymdata/data_set/sketches/f-024-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-019-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-056-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-007-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-005-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-008-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-090-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-001-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-088-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-020-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-003-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-099-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-012-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-040-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-068-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-060-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-025-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-041-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-057-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-021-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-029-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-087-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-010-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-066-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-086-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-089-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-049-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-097-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-041-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-027-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-029-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-095-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-051-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-032-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-038-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-029-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-005-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-025-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-053-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-018-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-018-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-035-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-006-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-085-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-030-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-020-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-043-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-033-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-014-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-101-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-036-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-042-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-011-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-040-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-032-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-082-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-004-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-010-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-070-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-010-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-045-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-093-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-033-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-043-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-026-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-013-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-081-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-041-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-013-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-062-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-016-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-094-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-024-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-048-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-039-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-013-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-033-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-008-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-075-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-055-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-044-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-032-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-017-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-016-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-069-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-039-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-006-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-006-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-031-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-050-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-038-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-091-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-010-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-046-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-005-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-037-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-023-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-098-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-072-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-011-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-026-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-014-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-040-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-012-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-034-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-061-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-084-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-037-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-034-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-034-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-096-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-031-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-009-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-019-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-073-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-008-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-012-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-035-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-017-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-035-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-036-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-083-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-009-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-077-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-080-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-015-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-028-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-078-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-011-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-004-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-038-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-076-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-028-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-022-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-030-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-014-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-027-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-025-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-059-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-054-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-003-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-015-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-011-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-067-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-092-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-071-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-065-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-039-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-013-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-015-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-063-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f1-007-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-058-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-007-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-009-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-064-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-022-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-042-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-031-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-037-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-027-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-030-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-047-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-002-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-008-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-074-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-100-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-021-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m1-036-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-079-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/m-017-01-sz1.jpg
+/kaggle/input/ymdata/data_set/sketches/f-023-01-sz1.jpg
+# ========================
+# Imports
+# ========================
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import Dataset, DataLoader
+from torch.cuda.amp import GradScaler, autocast
+import torchvision.transforms as transforms
+import numpy as np
+from skimage.metrics import structural_similarity as ssim
+from PIL import Image
+import os
+import glob
+import matplotlib.pyplot as plt
+# ------------------------------
+# Device
+# ------------------------------
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+def __len__(self):
+    return len(self.sketch_files)  # or len(self.image_files)
+# ========================
+#  Dataset
+# ========================
+import re
+from pathlib import Path
+from PIL import Image
+from torch.utils.data import Dataset, DataLoader
+import torchvision.transforms as T
+import torchvision
+
+class PairedSketchToImageDataset(Dataset):
+    def __init__(self, sketch_dir, image_dir,
+                 sketch_transform=None, image_transform=None,
+                 include_all_sketches=True, allowed_exts=(".jpg",".jpeg",".png")):
+        """
+        include_all_sketches:
+            True -> if multiple sketches exist for one image (e.g. -sz1, -sz2), include all pairs.
+            False -> keep only one sketch per image (first found).
+        """
+        sketch_dir = Path(sketch_dir)
+        image_dir = Path(image_dir)
+        # build image map: stem (lowercase) -> path
+        image_files = [p for p in image_dir.iterdir() if p.suffix.lower() in allowed_exts]
+        self.image_map = {p.stem.lower(): p for p in image_files}
+
+        sketch_files = [p for p in sketch_dir.iterdir() if p.suffix.lower() in allowed_exts]
+
+        pairs = []
+        unmatched = []
+
+        for sk in sketch_files:
+            sk_stem = sk.stem.lower().strip()
+
+            # 1) direct heuristic: remove common sketch suffix patterns
+            cand = re.sub(r'(-sz\d+|_sz\d+|-sketch|_sketch|-sk|_sk)$', '', sk_stem)
+            if cand in self.image_map:
+                pairs.append((str(sk), str(self.image_map[cand])))
+                continue
+
+            # 2) substring match: find image basename that is contained in sketch basename
+            matches = [img_base for img_base in self.image_map.keys() if img_base in sk_stem]
+            if matches:
+                # choose the longest match (most specific)
+                chosen = max(matches, key=len)
+                pairs.append((str(sk), str(self.image_map[chosen])))
+                continue
+
+            # 3) pattern match: capture prefix like f1-001-01 or similar patterns
+            m = re.match(r'([a-z0-9]+(?:-\d+)+)', sk_stem)
+            if m:
+                key = m.group(1)
+                if key in self.image_map:
+                    pairs.append((str(sk), str(self.image_map[key])))
+                    continue
+
+            # 4) fallback: try removing trailing segments after last hyphen (if that looks like sz)
+            if "-" in sk_stem:
+                prefix = "-".join(sk_stem.split("-")[:-1])
+                if prefix in self.image_map:
+                    pairs.append((str(sk), str(self.image_map[prefix])))
+                    continue
+
+            # no match found
+            unmatched.append(sk)
+
+        # If user wants only one sketch per image, reduce
+        if not include_all_sketches:
+            chosen = {}
+            for sk, im in pairs:
+                chosen.setdefault(im, sk)
+            pairs = [(v,k) for k,v in chosen.items()]  # (sketch, image)
+
+        self.pairs = pairs
+        self.sketch_transform = sketch_transform
+        self.image_transform = image_transform
+
+        print(f"[Dataset] Found {len(self.pairs)} matched pairs; {len(unmatched)} unmatched sketches.")
+        if unmatched:
+            print("Example unmatched sketches:", [p.name for p in unmatched[:10]])
+
+    def __len__(self):
+        return len(self.pairs)
+
+    def __getitem__(self, idx):
+        sk_path, im_path = self.pairs[idx]
+        sketch = Image.open(sk_path).convert("RGB")
+        image  = Image.open(im_path).convert("RGB")
+        if self.sketch_transform:
+            sketch = self.sketch_transform(sketch)
+        if self.image_transform:
+            image = self.image_transform(image)
+        return sketch, image
+
+# Example transforms (use yours if you already have them)
+sk_transform = T.Compose([T.Resize((256,256)), T.ToTensor()])
+im_transform = T.Compose([T.Resize((256,256)), T.ToTensor()])
+
+# Example usage:
+# dataset = PairedSketchToImageDataset("path/to/sketches", "path/to/images",
+#                                     sketch_transform=sk_transform, image_transform=im_transform,
+#                                     include_all_sketches=True)
+
+
+# Transforms
+sketch_transform = transforms.Compose([
+    transforms.Grayscale(num_output_channels=1),
+    transforms.Resize((256, 256)),
+    transforms.ToTensor(),
+    transforms.Normalize([0.5], [0.5])
+])
+
+image_transform = transforms.Compose([
+    transforms.Resize((256, 256)),
+    transforms.ToTensor(),
+    transforms.Normalize([0.5], [0.5], [0.5])
+])
+
+
+
+# Directories
+sketch_dir = "/kaggle/input/data262/gandata/sketches"
+image_dir = "/kaggle/input/data262/gandata/photos"
+
+dataset = PairedSketchToImageDataset(sketch_dir, image_dir, sketch_transform, image_transform)
+dataloader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=2, pin_memory=True)
+[Dataset] Found 263 matched pairs; 0 unmatched sketches.
+# ========================
+# Generator (UNet)
+# ========================
+class UNetGenerator(nn.Module):
+    def __init__(self, in_channels=1, out_channels=3, features=64):
+        super(UNetGenerator, self).__init__()
+
+        # Encoder
+        self.down1 = self.conv_block(in_channels, features)
+        self.down2 = self.conv_block(features, features*2)
+        self.down3 = self.conv_block(features*2, features*4)
+        self.down4 = self.conv_block(features*4, features*8)
+        self.pool = nn.MaxPool2d(2)
+
+        # Bottleneck
+        self.bottleneck = self.conv_block(features*8, features*16)
+
+        # Decoder
+        self.up4 = self.up_conv(features*16, features*8)
+        self.up3 = self.up_conv(features*8, features*4)
+        self.up2 = self.up_conv(features*4, features*2)
+        self.up1 = self.up_conv(features*2, features)
+        self.final = nn.Conv2d(features, out_channels, kernel_size=1)
+
+    def conv_block(self, in_ch, out_ch):
+        return nn.Sequential(
+            nn.Conv2d(in_ch, out_ch, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(out_ch),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(out_ch, out_ch, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(out_ch),
+            nn.ReLU(inplace=True)
+        )
+
+    def up_conv(self, in_ch, out_ch):
+        return nn.Sequential(
+            nn.ConvTranspose2d(in_ch, out_ch, kernel_size=2, stride=2),
+            nn.ReLU(inplace=True)
+        )
+
+    def forward(self, x):
+        # Encoder
+        d1 = self.down1(x)
+        d2 = self.down2(self.pool(d1))
+        d3 = self.down3(self.pool(d2))
+        d4 = self.down4(self.pool(d3))
+
+        # Bottleneck
+        bn = self.bottleneck(self.pool(d4))
+
+        # Decoder
+        u4 = self.up4(bn) + d4
+        u3 = self.up3(u4) + d3
+        u2 = self.up2(u3) + d2
+        u1 = self.up1(u2) + d1
+        return self.final(u1)
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+G = UNetGenerator(in_channels=1, out_channels=3).to(device)
+# ========================
+#  PatchGAN Discriminator
+# ========================
+import torch
+import torch.nn as nn
+
+class PatchGANDiscriminator(nn.Module):
+    def __init__(self, in_channels=4, features=[64, 128, 256, 512]):
+        super(PatchGANDiscriminator, self).__init__()
+        layers = []
+        # First layer (no batch norm)
+        layers.append(
+            nn.Conv2d(in_channels, features[0], kernel_size=4, stride=2, padding=1)
+        )
+        layers.append(nn.LeakyReLU(0.2, inplace=True))
+
+        # Hidden layers
+        in_feat = features[0]
+        for feature in features[1:]:
+            layers.append(
+                nn.Conv2d(in_feat, feature, kernel_size=4, stride=2, padding=1)
+            )
+            layers.append(nn.BatchNorm2d(feature))
+            layers.append(nn.LeakyReLU(0.2, inplace=True))
+            in_feat = feature
+
+        # Last layer (output 1 channel)
+        layers.append(nn.Conv2d(in_feat, 1, kernel_size=4, stride=1, padding=1))
+        self.model = nn.Sequential(*layers)
+
+    def forward(self, sketch, image):
+        # Concatenate along channel axis: sketch (1) + image (3) = 4 channels
+        x = torch.cat((sketch, image), dim=1)
+        return self.model(x)
+# ------------------------------
+# 5. Setup
+# ------------------------------
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+G = UNetGenerator(in_channels=1, out_channels=3).to(device)
+D = PatchGANDiscriminator(in_channels=4).to(device)
+
+optimizer_G = optim.Adam(G.parameters(), lr=2e-4, betas=(0.5, 0.999))
+optimizer_D = optim.Adam(D.parameters(), lr=2e-4, betas=(0.5, 0.999))
+
+criterion_BCE = nn.BCEWithLogitsLoss()
+criterion_L1 = nn.L1Loss()
+
+adversarial_loss = torch.nn.BCEWithLogitsLoss()
+pixel_loss = torch.nn.L1Loss()
+
+# 5. 🔽 VGG16 for perceptual loss
+from torchvision.models import vgg16
+import torch.nn.functional as F
+
+vgg = vgg16(pretrained=True).features[:16].eval().to(device)
+for param in vgg.parameters():
+    param.requires_grad = False  # freeze VGG weights
+
+def perceptual_loss(fake, real):
+    fake_features = vgg(fake)
+    real_features = vgg(real)
+    return F.l1_loss(fake_features, real_features)
+/usr/local/lib/python3.11/dist-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/usr/local/lib/python3.11/dist-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG16_Weights.IMAGENET1K_V1`. You can also use `weights=VGG16_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Downloading: "https://download.pytorch.org/models/vgg16-397923af.pth" to /root/.cache/torch/hub/checkpoints/vgg16-397923af.pth
+100%|██████████| 528M/528M [00:02<00:00, 219MB/s]
+# ------------------------------
+# 2. Model, Losses, Optimizer
+# ------------------------------
+G = UNetGenerator().to(device)
+D = PatchGANDiscriminator().to(device)
+
+criterion_BCE = nn.BCEWithLogitsLoss()
+criterion_L1 = nn.L1Loss()
+
+import torchvision.models as models
+
+# Perceptual loss (VGG16)
+criterion_content = nn.L1Loss()
+
+# VGG perceptual loss
+import torchvision.models as models
+vgg = models.vgg16(pretrained=True).features[:16].to(device).eval()
+for p in vgg.parameters():
+    p.requires_grad = False
+
+def perceptual_loss(fake, real):
+    f_fake = vgg(fake)
+    f_real = vgg(real)
+    return criterion_content(f_fake, f_real)
+
+
+optimizer_G = torch.optim.Adam(G.parameters(), lr=1e-4, betas=(0.5, 0.999))
+optimizer_D = torch.optim.Adam(D.parameters(), lr=1e-4, betas=(0.5, 0.999))
+
+scaler = torch.amp.GradScaler()  # mixed precision
+# ------------------------------
+# 6. Dataset & DataLoader (updated)
+# ------------------------------
+dataset = PairedSketchToImageDataset(sketch_dir, image_dir, sketch_transform, image_transform)
+dataloader = DataLoader(dataset, batch_size=8, shuffle=True, num_workers=2, pin_memory=True)
+[Dataset] Found 263 matched pairs; 0 unmatched sketches.
+import matplotlib.pyplot as plt
+
+def show_tensor_image(tensor):
+    image = tensor.detach().cpu()
+
+    if image.ndim == 3 and image.shape[0] == 1:   # [1,H,W] → [H,W]
+        image = image.squeeze(0)
+        plt.imshow((image * 0.5 + 0.5).numpy(), cmap="gray")
+    elif image.ndim == 3 and image.shape[0] == 3: # [3,H,W] → [H,W,3]
+        image = image.permute(1, 2, 0)
+        plt.imshow((image * 0.5 + 0.5).numpy())
+    else:
+        plt.imshow((image * 0.5 + 0.5).numpy(), cmap="gray")
+
+    plt.axis("off")
+    plt.show()
+for sketch, image in dataloader:
+    print("Sketch shape:", sketch.shape)   # should be [B,1,H,W]
+    print("Image shape:", image.shape)     # should be [B,3,H,W]
+    show_tensor_image(sketch[0])          # preview one sketch
+    break
+Sketch shape: torch.Size([8, 1, 256, 256])
+Image shape: torch.Size([8, 3, 256, 256])
+
+from torchvision import models
+
+vgg = models.vgg16(pretrained=True).features[:16].to(device).eval()
+for param in vgg.parameters():
+    param.requires_grad = False
+from torchmetrics import StructuralSimilarityIndexMeasure
+
+ssim_metric = StructuralSimilarityIndexMeasure(data_range=1.0).to(device)
+/usr/local/lib/python3.11/dist-packages/torchmetrics/utilities/prints.py:62: FutureWarning: Importing `StructuralSimilarityIndexMeasure` from `torchmetrics` was deprecated and will be removed in 2.0. Import `StructuralSimilarityIndexMeasure` from `torchmetrics.image` instead.
+  _future_warning(
+# Transforms (resize, tensor, normalization)
+from torchvision import transforms
+
+sketch_transform = transforms.Compose([
+    transforms.Grayscale(num_output_channels=1),
+    transforms.Resize((256, 256)),
+    transforms.ToTensor(),
+    transforms.Normalize([0.5], [0.5])
+])
+
+image_transform = transforms.Compose([
+    transforms.Resize((256, 256)),
+    transforms.ToTensor(),
+    transforms.Normalize([0.5], [0.5], [0.5])
+])
+
+
+
+# Create dataset
+train_dataset = PairedSketchToImageDataset(
+    sketch_dir, image_dir,
+    sketch_transform=sketch_transform,
+    image_transform=image_transform
+)
+[Dataset] Found 263 matched pairs; 0 unmatched sketches.
+# Create DataLoader
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=2,
+    shuffle=True,
+    num_workers=2,
+    pin_memory=True
+)
+!pip install pytorch-msssim
+Collecting pytorch-msssim
+  Downloading pytorch_msssim-1.0.0-py3-none-any.whl.metadata (8.0 kB)
+Requirement already satisfied: torch in /usr/local/lib/python3.11/dist-packages (from pytorch-msssim) (2.6.0+cu124)
+Requirement already satisfied: filelock in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (3.18.0)
+Requirement already satisfied: typing-extensions>=4.10.0 in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (4.14.0)
+Requirement already satisfied: networkx in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (3.5)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (3.1.6)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (2025.5.1)
+Collecting nvidia-cuda-nvrtc-cu12==12.4.127 (from torch->pytorch-msssim)
+  Downloading nvidia_cuda_nvrtc_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl.metadata (1.5 kB)
+Collecting nvidia-cuda-runtime-cu12==12.4.127 (from torch->pytorch-msssim)
+  Downloading nvidia_cuda_runtime_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl.metadata (1.5 kB)
+Collecting nvidia-cuda-cupti-cu12==12.4.127 (from torch->pytorch-msssim)
+  Downloading nvidia_cuda_cupti_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl.metadata (1.6 kB)
+Collecting nvidia-cudnn-cu12==9.1.0.70 (from torch->pytorch-msssim)
+  Downloading nvidia_cudnn_cu12-9.1.0.70-py3-none-manylinux2014_x86_64.whl.metadata (1.6 kB)
+Collecting nvidia-cublas-cu12==12.4.5.8 (from torch->pytorch-msssim)
+  Downloading nvidia_cublas_cu12-12.4.5.8-py3-none-manylinux2014_x86_64.whl.metadata (1.5 kB)
+Collecting nvidia-cufft-cu12==11.2.1.3 (from torch->pytorch-msssim)
+  Downloading nvidia_cufft_cu12-11.2.1.3-py3-none-manylinux2014_x86_64.whl.metadata (1.5 kB)
+Collecting nvidia-curand-cu12==10.3.5.147 (from torch->pytorch-msssim)
+  Downloading nvidia_curand_cu12-10.3.5.147-py3-none-manylinux2014_x86_64.whl.metadata (1.5 kB)
+Collecting nvidia-cusolver-cu12==11.6.1.9 (from torch->pytorch-msssim)
+  Downloading nvidia_cusolver_cu12-11.6.1.9-py3-none-manylinux2014_x86_64.whl.metadata (1.6 kB)
+Collecting nvidia-cusparse-cu12==12.3.1.170 (from torch->pytorch-msssim)
+  Downloading nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_x86_64.whl.metadata (1.6 kB)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.6.2 in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (0.6.2)
+Requirement already satisfied: nvidia-nccl-cu12==2.21.5 in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (2.21.5)
+Requirement already satisfied: nvidia-nvtx-cu12==12.4.127 in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (12.4.127)
+Collecting nvidia-nvjitlink-cu12==12.4.127 (from torch->pytorch-msssim)
+  Downloading nvidia_nvjitlink_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl.metadata (1.5 kB)
+Requirement already satisfied: triton==3.2.0 in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (3.2.0)
+Requirement already satisfied: sympy==1.13.1 in /usr/local/lib/python3.11/dist-packages (from torch->pytorch-msssim) (1.13.1)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.11/dist-packages (from sympy==1.13.1->torch->pytorch-msssim) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.11/dist-packages (from jinja2->torch->pytorch-msssim) (3.0.2)
+Downloading pytorch_msssim-1.0.0-py3-none-any.whl (7.7 kB)
+Downloading nvidia_cublas_cu12-12.4.5.8-py3-none-manylinux2014_x86_64.whl (363.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 363.4/363.4 MB 5.1 MB/s eta 0:00:00
+Downloading nvidia_cuda_cupti_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (13.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.8/13.8 MB 87.7 MB/s eta 0:00:00
+Downloading nvidia_cuda_nvrtc_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (24.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24.6/24.6 MB 75.0 MB/s eta 0:00:00
+Downloading nvidia_cuda_runtime_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (883 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 883.7/883.7 kB 56.1 MB/s eta 0:00:00
+Downloading nvidia_cudnn_cu12-9.1.0.70-py3-none-manylinux2014_x86_64.whl (664.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 2.8 MB/s eta 0:00:00
+Downloading nvidia_cufft_cu12-11.2.1.3-py3-none-manylinux2014_x86_64.whl (211.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 211.5/211.5 MB 8.7 MB/s eta 0:00:00
+Downloading nvidia_curand_cu12-10.3.5.147-py3-none-manylinux2014_x86_64.whl (56.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 MB 34.7 MB/s eta 0:00:00
+Downloading nvidia_cusolver_cu12-11.6.1.9-py3-none-manylinux2014_x86_64.whl (127.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 127.9/127.9 MB 9.0 MB/s eta 0:00:00
+Downloading nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_x86_64.whl (207.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 207.5/207.5 MB 9.0 MB/s eta 0:00:00
+Downloading nvidia_nvjitlink_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (21.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 21.1/21.1 MB 74.6 MB/s eta 0:00:00
+Installing collected packages: nvidia-nvjitlink-cu12, nvidia-curand-cu12, nvidia-cufft-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, nvidia-cusparse-cu12, nvidia-cudnn-cu12, nvidia-cusolver-cu12, pytorch-msssim
+  Attempting uninstall: nvidia-nvjitlink-cu12
+    Found existing installation: nvidia-nvjitlink-cu12 12.5.82
+    Uninstalling nvidia-nvjitlink-cu12-12.5.82:
+      Successfully uninstalled nvidia-nvjitlink-cu12-12.5.82
+  Attempting uninstall: nvidia-curand-cu12
+    Found existing installation: nvidia-curand-cu12 10.3.6.82
+    Uninstalling nvidia-curand-cu12-10.3.6.82:
+      Successfully uninstalled nvidia-curand-cu12-10.3.6.82
+  Attempting uninstall: nvidia-cufft-cu12
+    Found existing installation: nvidia-cufft-cu12 11.2.3.61
+    Uninstalling nvidia-cufft-cu12-11.2.3.61:
+      Successfully uninstalled nvidia-cufft-cu12-11.2.3.61
+  Attempting uninstall: nvidia-cuda-runtime-cu12
+    Found existing installation: nvidia-cuda-runtime-cu12 12.5.82
+    Uninstalling nvidia-cuda-runtime-cu12-12.5.82:
+      Successfully uninstalled nvidia-cuda-runtime-cu12-12.5.82
+  Attempting uninstall: nvidia-cuda-nvrtc-cu12
+    Found existing installation: nvidia-cuda-nvrtc-cu12 12.5.82
+    Uninstalling nvidia-cuda-nvrtc-cu12-12.5.82:
+      Successfully uninstalled nvidia-cuda-nvrtc-cu12-12.5.82
+  Attempting uninstall: nvidia-cuda-cupti-cu12
+    Found existing installation: nvidia-cuda-cupti-cu12 12.5.82
+    Uninstalling nvidia-cuda-cupti-cu12-12.5.82:
+      Successfully uninstalled nvidia-cuda-cupti-cu12-12.5.82
+  Attempting uninstall: nvidia-cublas-cu12
+    Found existing installation: nvidia-cublas-cu12 12.5.3.2
+    Uninstalling nvidia-cublas-cu12-12.5.3.2:
+      Successfully uninstalled nvidia-cublas-cu12-12.5.3.2
+  Attempting uninstall: nvidia-cusparse-cu12
+    Found existing installation: nvidia-cusparse-cu12 12.5.1.3
+    Uninstalling nvidia-cusparse-cu12-12.5.1.3:
+      Successfully uninstalled nvidia-cusparse-cu12-12.5.1.3
+  Attempting uninstall: nvidia-cudnn-cu12
+    Found existing installation: nvidia-cudnn-cu12 9.3.0.75
+    Uninstalling nvidia-cudnn-cu12-9.3.0.75:
+      Successfully uninstalled nvidia-cudnn-cu12-9.3.0.75
+  Attempting uninstall: nvidia-cusolver-cu12
+    Found existing installation: nvidia-cusolver-cu12 11.6.3.83
+    Uninstalling nvidia-cusolver-cu12-11.6.3.83:
+      Successfully uninstalled nvidia-cusolver-cu12-11.6.3.83
+Successfully installed nvidia-cublas-cu12-12.4.5.8 nvidia-cuda-cupti-cu12-12.4.127 nvidia-cuda-nvrtc-cu12-12.4.127 nvidia-cuda-runtime-cu12-12.4.127 nvidia-cudnn-cu12-9.1.0.70 nvidia-cufft-cu12-11.2.1.3 nvidia-curand-cu12-10.3.5.147 nvidia-cusolver-cu12-11.6.1.9 nvidia-cusparse-cu12-12.3.1.170 nvidia-nvjitlink-cu12-12.4.127 pytorch-msssim-1.0.0
+import torch
+import torch.nn as nn
+from pytorch_msssim import ssim
+from torchvision.models import vgg16
+import torch.nn.functional as F
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# ------------------------
+# Loss Functions
+# ------------------------
+criterion_GAN = nn.BCEWithLogitsLoss()
+criterion_L1 = nn.L1Loss()
+
+# ------------------------
+# Perceptual VGG setup
+# ------------------------
+vgg = vgg16(pretrained=True).features[:16].eval().to(device)
+for param in vgg.parameters():
+    param.requires_grad = False
+
+def perceptual_loss(fake, real):
+    fake_features = vgg(fake)
+    real_features = vgg(real)
+    return F.l1_loss(fake_features, real_features)
+
+# ------------------------
+# Optimizers & Schedulers
+# ------------------------
+optimizer_G = torch.optim.Adam(G.parameters(), lr=1e-4, betas=(0.5, 0.999))
+optimizer_D = torch.optim.Adam(D.parameters(), lr=1e-4, betas=(0.5, 0.999))
+
+scheduler_G = torch.optim.lr_scheduler.StepLR(optimizer_G, step_size=50, gamma=0.5)
+scheduler_D = torch.optim.lr_scheduler.StepLR(optimizer_D, step_size=50, gamma=0.5)
+
+# ------------------------
+# Training loop
+# ------------------------
+epochs = 200
+best_ssim = 0.0
+
+# Updated weights
+lambda_L1 = 80
+lambda_SSIM = 70
+lambda_perc = 25
+
+for epoch in range(epochs):
+    epoch_g_loss = 0.0
+    epoch_d_loss = 0.0
+    epoch_ssim = []
+
+    for i, (sketch, real) in enumerate(train_loader):
+        sketch, real = sketch.to(device), real.to(device)
+
+        # ------------------------
+        # Generate Fake Images
+        # ------------------------
+        fake_images = G(sketch)
+
+        # ------------------------
+        # Train Discriminator
+        # ------------------------
+        optimizer_D.zero_grad()
+        fake_images_detached = fake_images.detach()
+
+        real_pred = D(sketch, real)
+        fake_pred = D(sketch, fake_images_detached)
+
+        real_labels = torch.ones_like(real_pred) * 0.9
+        fake_labels = torch.zeros_like(fake_pred)
+
+        d_real_loss = criterion_GAN(real_pred, real_labels)
+        d_fake_loss = criterion_GAN(fake_pred, fake_labels)
+        D_loss = 0.5 * (d_real_loss + d_fake_loss)
+
+        D_loss.backward()
+        optimizer_D.step()
+
+        # ------------------------
+        # Train Generator
+        # ------------------------
+        optimizer_G.zero_grad()
+
+        pred_fake = D(sketch, fake_images)
+        g_adv_loss = criterion_GAN(pred_fake, torch.ones_like(pred_fake))
+        g_l1_loss = criterion_L1(fake_images, real)
+        g_ssim_loss = 1 - ssim(fake_images, real, data_range=2.0)
+        g_perc_loss = perceptual_loss(fake_images, real)
+
+        # Total generator loss
+        G_loss = g_adv_loss + lambda_L1 * g_l1_loss + lambda_SSIM * g_ssim_loss + lambda_perc * g_perc_loss
+
+        G_loss.backward()
+        optimizer_G.step()
+
+        # ------------------------
+        # Track Losses and SSIM
+        # ------------------------
+        epoch_g_loss += G_loss.item()
+        epoch_d_loss += D_loss.item()
+        epoch_ssim.append(1 - g_ssim_loss.item())
+
+    avg_g_loss = epoch_g_loss / len(train_loader)
+    avg_d_loss = epoch_d_loss / len(train_loader)
+    avg_ssim = sum(epoch_ssim) / len(epoch_ssim)
+
+    torch.cuda.empty_cache()
+
+    print(f"Epoch [{epoch+1}/{epochs}] "
+          f"G_loss: {avg_g_loss:.4f} D_loss: {avg_d_loss:.4f} Avg SSIM: {avg_ssim:.4f}")
+
+    # Save best model
+    if avg_ssim > best_ssim:
+        best_ssim = avg_ssim
+        torch.save(G.state_dict(), "best_generator.pth")
+
+    # Step schedulers
+    scheduler_G.step()
+    scheduler_D.step()
+/usr/local/lib/python3.11/dist-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/usr/local/lib/python3.11/dist-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG16_Weights.IMAGENET1K_V1`. You can also use `weights=VGG16_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+import torch
+import torch.nn as nn
+from pytorch_msssim import ssim
+from torchvision.models import vgg16
+import torch.nn.functional as F
+
+# ------------------------
+# Define Loss Functions
+# ------------------------
+criterion_GAN = nn.BCEWithLogitsLoss()
+criterion_L1 = nn.L1Loss()
+
+# ------------------------
+# Perceptual VGG setup
+# ------------------------
+vgg = vgg16(pretrained=True).features[:16].eval().to(device)
+for param in vgg.parameters():
+    param.requires_grad = False
+
+def perceptual_loss(fake, real):
+    fake_features = vgg(fake)
+    real_features = vgg(real)
+    return F.l1_loss(fake_features, real_features)
+
+# ------------------------
+# Optimizers & Schedulers
+# ------------------------
+optimizer_G = torch.optim.Adam(G.parameters(), lr=1e-4, betas=(0.5, 0.999))
+optimizer_D = torch.optim.Adam(D.parameters(), lr=1e-4, betas=(0.5, 0.999))
+
+scheduler_G = torch.optim.lr_scheduler.StepLR(optimizer_G, step_size=50, gamma=0.5)
+scheduler_D = torch.optim.lr_scheduler.StepLR(optimizer_D, step_size=50, gamma=0.5)
+
+# ------------------------
+# Training loop
+# ------------------------
+epochs = 150
+best_ssim = 0.0
+
+lambda_L1 = 80
+lambda_SSIM = 70
+lambda_perc = 25   # perceptual loss weight
+
+for epoch in range(epochs):
+    epoch_g_loss = 0.0
+    epoch_d_loss = 0.0
+    epoch_ssim = []
+
+    for i, (sketch, real) in enumerate(train_loader):
+        sketch, real = sketch.to(device), real.to(device)
+
+        # ------------------------
+        # Generate Fake Images
+        # ------------------------
+        fake_images = G(sketch)
+
+        # ------------------------
+        # Train Discriminator
+        # ------------------------
+        optimizer_D.zero_grad()
+        fake_images_detached = fake_images.detach()
+
+        real_pred = D(sketch, real)
+        fake_pred = D(sketch, fake_images_detached)
+
+        real_labels = torch.ones_like(real_pred) * 0.9
+        fake_labels = torch.zeros_like(fake_pred)
+
+        d_real_loss = criterion_GAN(real_pred, real_labels)
+        d_fake_loss = criterion_GAN(fake_pred, fake_labels)
+        D_loss = 0.5 * (d_real_loss + d_fake_loss)
+
+        D_loss.backward()
+        optimizer_D.step()
+
+        # ------------------------
+        # Train Generator
+        # ------------------------
+        optimizer_G.zero_grad()
+
+        pred_fake = D(sketch, fake_images)
+        g_adv_loss = criterion_GAN(pred_fake, torch.ones_like(pred_fake))
+        g_l1_loss = criterion_L1(fake_images, real)
+        g_ssim_loss = 1 - ssim(fake_images, real, data_range=2.0)
+        g_perc_loss = perceptual_loss(fake_images, real)
+
+        # Total generator loss with perceptual
+        G_loss = g_adv_loss + lambda_L1 * g_l1_loss + lambda_SSIM * g_ssim_loss + lambda_perc * g_perc_loss
+
+        G_loss.backward()
+        optimizer_G.step()
+
+        # ------------------------
+        # Track Losses and SSIM
+        # ------------------------
+        epoch_g_loss += G_loss.item()
+        epoch_d_loss += D_loss.item()
+        epoch_ssim.append(1 - g_ssim_loss.item())
+
+    avg_g_loss = epoch_g_loss / len(train_loader)
+    avg_d_loss = epoch_d_loss / len(train_loader)
+    avg_ssim = sum(epoch_ssim) / len(epoch_ssim)
+
+    torch.cuda.empty_cache()
+
+    print(f"Epoch [{epoch+1}/{epochs}] "
+          f"G_loss: {avg_g_loss:.4f} D_loss: {avg_d_loss:.4f} Avg SSIM: {avg_ssim:.4f}")
+
+    # Save best model
+    if avg_ssim > best_ssim:
+        best_ssim = avg_ssim
+        torch.save(G.state_dict(), "best_generator.pth")
+
+    # Step schedulers
+    scheduler_G.step()
+    scheduler_D.step()
+import torch
+import torchvision.utils as vutils
+import matplotlib.pyplot as plt
+from torchmetrics.functional import structural_similarity_index_measure as ssim
+import os
+
+def generate_and_show_results(G, dataset, device, save_dir="/kaggle/working/generated_results", max_show=50):
+    G.eval()
+    os.makedirs(save_dir, exist_ok=True)
+    all_ssim = []
+
+    with torch.no_grad():
+        for i, (sketch, real) in enumerate(dataset):
+            sketch_t = sketch.unsqueeze(0).to(device)
+            real_t   = real.unsqueeze(0).to(device)
+
+            # Generate fake
+            fake_img = G(sketch_t)
+            fake_img_clamped = torch.clamp(fake_img, -1, 1)
+
+            # Scale to [0,1] for saving/viewing
+            fake_img_save = (fake_img_clamped + 1) / 2
+            real_img_save = (real_t + 1) / 2
+            sketch_img_save = (sketch_t + 1) / 2
+
+            # Save generated image
+            vutils.save_image(fake_img_save, os.path.join(save_dir, f"gen_{i}.png"))
+
+            # Compute SSIM
+            batch_ssim = ssim(fake_img_clamped, real_t)
+            all_ssim.append(batch_ssim.item())
+
+            # Show images (Sketch | Fake | Real)
+            if i < max_show:
+                fig, axs = plt.subplots(1, 3, figsize=(12, 4))
+                
+                # Sketch (grayscale)
+                axs[0].imshow(sketch_img_save.squeeze(0).squeeze(0).cpu(), cmap="gray")
+                axs[0].set_title("Sketch")
+                axs[0].axis('off')
+
+                # Generated (RGB)
+                axs[1].imshow(fake_img_save.squeeze(0).permute(1, 2, 0).cpu())
+                axs[1].set_title(f"Generated\nSSIM: {batch_ssim.item():.4f}")
+                axs[1].axis('off')
+
+                # Real (RGB)
+                axs[2].imshow(real_img_save.squeeze(0).permute(1, 2, 0).cpu())
+                axs[2].set_title("Real")
+                axs[2].axis('off')
+
+
+                plt.show()
+
+    # Print average SSIM
+    avg_ssim = sum(all_ssim) / len(all_ssim)
+    print(f"Generated {len(dataset)} images. Average SSIM: {avg_ssim:.4f}")
+generate_and_show_results(G, dataset, device)
+# Recommended: save only the generator parameters (small, portable)
+torch.save(G.state_dict(), "generator_state.pth")
+import os
+print("Exists?", os.path.exists("generator_state.pth"))
